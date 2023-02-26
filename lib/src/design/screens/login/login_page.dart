@@ -72,7 +72,7 @@ class MobileLoginScreen extends StatelessWidget {
                 userType: isStudent ? UserType.student : UserType.instructor,
               ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ],

@@ -29,6 +29,7 @@ class LoginAndSignupBtn extends StatelessWidget {
                     builder: (context) {
                       return const LoginScreen(
                         isStudent: true,
+                      
                       );
                     },
                   ),

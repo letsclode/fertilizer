@@ -10,6 +10,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/authenticatio
 import 'package:starter_architecture_flutter_firebase/src/localization/string_hardcoded.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
+import '../../../../common_widgets/custom_text_button.dart';
+
 /// Email & password sign in screen.
 /// Wraps the [EmailPasswordSignInContents] widget below with a [Scaffold] and
 /// [AppBar] with a title.
@@ -212,6 +214,12 @@ class _EmailPasswordSignInContentsState
               onPressed: state.isLoading ? null : () => _submit(),
             ),
             gapH8,
+            if (_userType == UserType.instructor) ...{
+              CustomTextButton(
+                text: _formType.secondaryButtonText,
+                onPressed: state.isLoading ? null : _updateFormType,
+              ),
+            }
           ],
         ),
       ),
