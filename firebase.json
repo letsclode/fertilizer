@@ -1,20 +1,21 @@
 {
   "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
+    "indexes": "firestore.indexes.json",
+    "rules": "firestore.rules"
   },
   "hosting": {
-    "public": "build/web",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
+    "public": "build/web",
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "destination": "/index.html",
+        "source": "**"
       }
-    ]
+    ],
+    "target": "blog"
   }
 }
