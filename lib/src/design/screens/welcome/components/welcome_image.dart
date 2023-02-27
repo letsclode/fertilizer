@@ -48,15 +48,15 @@ class _WelcomeImageState extends State<WelcomeImage> {
         Row(
           children: [
             const Spacer(),
-            MaterialButton(
-              onPressed: () async {
-                final fcmToken = await FirebaseMessaging.instance.getToken(
-                    vapidKey:
-                        "BIFF0CwSoBUwFO4kKc-JguA4LuYk_git0W2kS7pwSascASClXl894ry03eErTR6lrk99Dalq4DIwr6Yhtxp5hV0");
-                print(fcmToken);
-              },
-              child: const Text("Token"),
-            ),
+            // MaterialButton(
+            //   onPressed: () async {
+            //     final fcmToken = await FirebaseMessaging.instance.getToken(
+            //         vapidKey:
+            //             "BIFF0CwSoBUwFO4kKc-JguA4LuYk_git0W2kS7pwSascASClXl894ry03eErTR6lrk99Dalq4DIwr6Yhtxp5hV0");
+            //     print(fcmToken);
+            //   },
+            //   child: const Text("Token"),
+            // ),
             Expanded(
               flex: 8,
               child: SvgPicture.asset(
