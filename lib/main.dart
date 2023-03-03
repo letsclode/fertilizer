@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,11 +10,14 @@ import 'package:starter_architecture_flutter_firebase/src/localization/string_ha
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   // turn off the # in the URLs on the web
   // usePathUrlStrategy();
+
+  requestPermission();
 
   registerErrorHandlers();
 
@@ -27,6 +31,24 @@ Future<void> main() async {
     container: container,
     child: const MyApp(),
   ));
+}
+
+void requestPermission() async {
+  final messaging = FirebaseMessaging.instance;
+
+  final settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  if (kDebugMode) {
+    print('Permission granted: ${settings.authorizationStatus}');
+  }
 }
 
 void registerErrorHandlers() {

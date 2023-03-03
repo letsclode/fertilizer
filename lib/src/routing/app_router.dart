@@ -16,15 +16,12 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/presenta
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_bottom_nav_bar.dart';
 
-import '../features/jobs/presentation/admin/admin_login_page.dart';
-
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final _adminNavigatorKey = GlobalKey<NavigatorState>();
 
 enum AppRoute {
-  // onboarding,
   signIn,
   emailPassword,
   jobs,
@@ -36,7 +33,6 @@ enum AppRoute {
   editEntry,
   entries,
   account,
-  admin,
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -50,34 +46,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       final isLoggedIn = authRepository.currentUser != null;
 
       final bool onloginPage = state.subloc == '/';
-      final bool onAdminPage = state.subloc == '/admin';
       print(state.subloc);
 
-      if (onAdminPage) {
-        return '/admin';
-      } else {
-        if (!isLoggedIn && !onloginPage && !onAdminPage) {
-          print("signin");
-          return '/';
-        }
-
-        if (isLoggedIn && onloginPage) {
-          return '/jobs';
-        }
+      if (!isLoggedIn && !onloginPage) {
+        return '/';
       }
 
+      if (isLoggedIn && onloginPage) {
+        return '/jobs';
+      }
       return null;
     },
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     routes: [
-      //TODO: admin login separate
-      GoRoute(
-        path: '/admin',
-        name: AppRoute.admin.name,
-        pageBuilder: (context, state) =>
-            NoTransitionPage(key: state.pageKey, child: const AdminLoginPage()),
-      ),
-
       GoRoute(
         path: '/',
         name: AppRoute.signIn.name,

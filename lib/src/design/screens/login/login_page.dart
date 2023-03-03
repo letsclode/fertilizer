@@ -23,22 +23,31 @@ class LoginScreen extends StatelessWidget {
                 child: LoginScreenTopImage(),
               ),
               Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: [
-                    SizedBox(
-                      width: 380,
-                      child: Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(13.0),
-                          child: EmailPasswordSignInScreen(
-                            formType: EmailPasswordSignInFormType.signIn,
-                            userType: isStudent
-                                ? UserType.student
-                                : UserType.instructor,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 380,
+                          child: Card(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(13.0),
+                                  child: EmailPasswordSignInScreen(
+                                    formType:
+                                        EmailPasswordSignInFormType.signIn,
+                                    userType: isStudent
+                                        ? UserType.student
+                                        : UserType.instructor,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),

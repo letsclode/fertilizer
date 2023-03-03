@@ -5,6 +5,16 @@ enum EmailPasswordSignInFormType { signIn, register }
 
 enum UserType { student, instructor }
 
+extension UserTypeX on UserType {
+  UserType get toogleUserType {
+    if (this == UserType.instructor) {
+      return UserType.student;
+    } else {
+      return UserType.instructor;
+    }
+  }
+}
+
 extension EmailPasswordSignInFormTypeX on EmailPasswordSignInFormType {
   String get passwordLabelText {
     if (this == EmailPasswordSignInFormType.register) {

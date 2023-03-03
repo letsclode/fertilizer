@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,9 +17,22 @@ class AuthRepository {
     return _auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
-  Future<void> createUserWithEmailAndPassword(String email, String password) {
-    return _auth.createUserWithEmailAndPassword(
-        email: email, password: password);
+  Future<void> createUserWithEmailAndPassword(
+      String email, String password, String userType) {
+    return _auth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) => postDetailsToFirestore(email, userType));
+  }
+
+  postDetailsToFirestore(String email, String rule) async {
+    try {
+      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+      var user = _auth.currentUser;
+      CollectionReference ref = FirebaseFirestore.instance.collection('users');
+      ref.doc(user!.uid).set({'email': email, 'rule': rule});
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> signOut() {

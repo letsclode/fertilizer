@@ -74,7 +74,7 @@ class _EmailPasswordSignInContentsState
   var _submitted = false;
   // track the formType as a local state variable
   late var _formType = widget.formType;
-  late final _userType = widget.userType;
+  late var _userType = widget.userType;
 
   @override
   void dispose() {
@@ -92,10 +92,10 @@ class _EmailPasswordSignInContentsState
       final controller =
           ref.read(emailPasswordSignInControllerProvider.notifier);
       await controller.submit(
-        email: email,
-        password: password,
-        formType: _formType,
-      );
+          email: email,
+          password: password,
+          formType: _formType,
+          userType: _userType);
     }
   }
 
@@ -118,6 +118,12 @@ class _EmailPasswordSignInContentsState
     setState(() => _formType = _formType.secondaryActionFormType);
     // * Clear the password field when doing so
     _passwordController.clear();
+  }
+
+  void _updateLoginType() {
+    // * Toggle between register and sign in form
+    setState(() => _userType = _userType.toogleUserType);
+    // * Clear the password field when doing so
   }
 
   @override
@@ -219,7 +225,21 @@ class _EmailPasswordSignInContentsState
                 text: _formType.secondaryButtonText,
                 onPressed: state.isLoading ? null : _updateFormType,
               ),
-            }
+            },
+            Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                    "Are you a ${(_userType != UserType.student) ? "student" : "instructor"}?"),
+                TextButton(
+                    onPressed: () {
+                      _updateLoginType();
+                    },
+                    child: const Text("Click here!"))
+              ],
+            )
           ],
         ),
       ),
