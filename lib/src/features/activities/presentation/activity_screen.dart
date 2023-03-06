@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entries_list_tile_model.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/entries/application/entries_service.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/activities/domain/activities_list_tile_model.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/activities/application/activities_service.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 
-class SubjectScreen extends ConsumerWidget {
-  const SubjectScreen({super.key});
+class ActivityScreen extends ConsumerWidget {
+  const ActivityScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,9 +18,9 @@ class SubjectScreen extends ConsumerWidget {
         builder: (context, ref, child) {
           final entriesTileModelStream =
               ref.watch(entriesTileModelStreamProvider);
-          return ListItemsBuilder<EntriesListTileModel>(
+          return ListItemsBuilder<ActivitiesListTileModel>(
             data: entriesTileModelStream,
-            itemBuilder: (context, model) => EntriesListTile(model: model),
+            itemBuilder: (context, model) => ActivitiesListTile(model: model),
           );
         },
       ),
@@ -28,9 +28,9 @@ class SubjectScreen extends ConsumerWidget {
   }
 }
 
-class EntriesListTile extends StatelessWidget {
-  const EntriesListTile({super.key, required this.model});
-  final EntriesListTileModel model;
+class ActivitiesListTile extends StatelessWidget {
+  const ActivitiesListTile({super.key, required this.model});
+  final ActivitiesListTileModel model;
 
   @override
   Widget build(BuildContext context) {

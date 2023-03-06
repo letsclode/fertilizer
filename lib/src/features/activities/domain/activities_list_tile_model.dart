@@ -1,5 +1,5 @@
-class EntriesListTileModel {
-  const EntriesListTileModel({
+class ActivitiesListTileModel {
+  const ActivitiesListTileModel({
     required this.leadingText,
     required this.trailingText,
     this.middleText,

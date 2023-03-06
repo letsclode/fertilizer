@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/subject.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen_controller.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/subjects/domain/subject.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/subjects/presentation/edit_subject_screen/edit_job_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
 class EditSubjectScreen extends ConsumerStatefulWidget {
-  const EditSubjectScreen({super.key, this.jobId, this.job});
-  final JobID? jobId;
-  final Job? job;
+  const EditSubjectScreen({super.key, this.subjectID, this.subject});
+  final SubjectID? subjectID;
+  final Subject? subject;
 
   @override
   ConsumerState<EditSubjectScreen> createState() => _EditJobPageState();
@@ -20,14 +20,12 @@ class _EditJobPageState extends ConsumerState<EditSubjectScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;
-  int? _ratePerHour;
 
   @override
   void initState() {
     super.initState();
-    if (widget.job != null) {
-      _name = widget.job?.name;
-      _ratePerHour = widget.job?.ratePerHour;
+    if (widget.subject != null) {
+      _name = widget.subject?.name;
     }
   }
 
@@ -44,9 +42,8 @@ class _EditJobPageState extends ConsumerState<EditSubjectScreen> {
     if (_validateAndSaveForm()) {
       final success =
           await ref.read(editJobScreenControllerProvider.notifier).submit(
-                job: widget.job,
+                subject: widget.subject,
                 name: _name ?? '',
-                ratePerHour: _ratePerHour ?? 0,
               );
       if (success && mounted) {
         context.pop();
@@ -63,7 +60,7 @@ class _EditJobPageState extends ConsumerState<EditSubjectScreen> {
     final state = ref.watch(editJobScreenControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
+        title: Text(widget.subject == null ? 'New Job' : 'Edit Job'),
         actions: <Widget>[
           TextButton(
             onPressed: state.isLoading ? null : _submit,
@@ -111,16 +108,6 @@ class _EditJobPageState extends ConsumerState<EditSubjectScreen> {
         validator: (value) =>
             (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
         onSaved: (value) => _name = value,
-      ),
-      TextFormField(
-        decoration: const InputDecoration(labelText: 'Rate per hour'),
-        keyboardAppearance: Brightness.light,
-        initialValue: _ratePerHour != null ? '$_ratePerHour' : null,
-        keyboardType: const TextInputType.numberWithOptions(
-          signed: false,
-          decimal: false,
-        ),
-        onSaved: (value) => _ratePerHour = int.tryParse(value ?? '') ?? 0,
       ),
     ];
   }

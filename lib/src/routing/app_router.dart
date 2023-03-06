@@ -7,14 +7,15 @@ import 'package:starter_architecture_flutter_firebase/src/features/authenticatio
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_form_type.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/entries/presentation/entries_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/subject.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/entry_screen/entry_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/job_entries_screen/job_entries_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/subjects/domain/activity.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/subjects/domain/subject.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/subjects/presentation/edit_subject_screen/edit_subject_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
+
+import '../features/subjects/presentation/activity_screen/activities_screen.dart';
+import '../features/subjects/presentation/subject_activities_screen/subject_activiies_screen.dart';
+import '../features/subjects/presentation/subjects_screen/subjects_screen.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -27,8 +28,10 @@ enum AppRoute {
   // jobs,
   job, //specific job
   // addJob,
-  editJob,
-  entry,
+  // editJob,
+  editSubject,
+  // entry,
+  activity,
   addEntry,
   editEntry,
   subjects,
@@ -113,7 +116,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                   final id = state.params['id']!;
                   return MaterialPage(
                     key: state.pageKey,
-                    child: JobEntriesScreen(jobId: id),
+                    child: SubjectActivitiesScreen(subjectID: id),
                   );
                 },
                 routes: [
@@ -122,43 +125,44 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     name: AppRoute.addEntry.name,
                     parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
-                      final jobId = state.params['id']!;
+                      final subjectId = state.params['id']!;
                       return MaterialPage(
                         key: state.pageKey,
                         fullscreenDialog: true,
-                        child: EntryScreen(
-                          jobId: jobId,
+                        child: ActivitiesScreen(
+                          subjectId: subjectId,
                         ),
                       );
                     },
                   ),
                   GoRoute(
                     path: 'subjects/:eid',
-                    name: AppRoute.entry.name,
+                    name: AppRoute.activity.name,
                     pageBuilder: (context, state) {
-                      final jobId = state.params['id']!;
-                      final entryId = state.params['eid']!;
-                      final entry = state.extra as Entry?;
+                      final subjectId = state.params['id']!;
+                      final activityId = state.params['aid']!;
+                      final activity = state.extra as Activity?;
                       return MaterialPage(
                         key: state.pageKey,
-                        child: EntryScreen(
-                          jobId: jobId,
-                          entryId: entryId,
-                          entry: entry,
+                        child: ActivitiesScreen(
+                          subjectId: subjectId,
+                          activityId: activityId,
+                          activity: activity,
                         ),
                       );
                     },
                   ),
                   GoRoute(
                     path: 'edit',
-                    name: AppRoute.editJob.name,
+                    name: AppRoute.editSubject.name,
                     pageBuilder: (context, state) {
-                      final jobId = state.params['id'];
-                      final job = state.extra as Job?;
+                      final subjectId = state.params['id'];
+                      final subject = state.extra as Subject?;
                       return MaterialPage(
                         key: state.pageKey,
                         fullscreenDialog: true,
-                        child: EditSubjectScreen(jobId: jobId, job: job),
+                        child: EditSubjectScreen(
+                            subjectID: subjectId, subject: subject),
                       );
                     },
                   ),
