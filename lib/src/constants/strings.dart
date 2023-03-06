@@ -20,7 +20,7 @@ class Strings {
   static const String homePage = 'Home Page';
 
   // Jobs page
-  static const String jobs = 'Jobs';
+  // static const String jobs = 'Jobs';
   //dashboard
   static const String dashboard = 'DashBoard';
 

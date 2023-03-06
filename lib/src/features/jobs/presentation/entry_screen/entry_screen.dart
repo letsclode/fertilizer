@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/date_time_picker.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/subject.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/entry_screen/entry_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';

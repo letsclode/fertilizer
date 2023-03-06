@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/subject.dart';
 
 class JobsScreenController extends AutoDisposeAsyncNotifier<void> {
   @override
@@ -11,7 +11,7 @@ class JobsScreenController extends AutoDisposeAsyncNotifier<void> {
     // ok to leave this empty if the return type is FutureOr<void>
   }
 
-  Future<void> deleteJob(Job job) async {
+  Future<void> deleteSubject(Job job) async {
     final currentUser = ref.read(authRepositoryProvider).currentUser;
     if (currentUser == null) {
       throw AssertionError('User can\'t be null');

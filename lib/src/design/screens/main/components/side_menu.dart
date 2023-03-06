@@ -34,37 +34,37 @@ class SideMenu extends ConsumerWidget {
               context.goNamed(AppRoute.dashboard.name);
             },
           ),
+          // DrawerListTile(
+          //   title: "Subjects",
+          //   svgSrc: "assets/icons/menu_task.svg",
+          //   press: () {
+          //     context.goNamed(AppRoute.subjects.name);
+          //   },
+          // ),
+          // DrawerListTile(
+          //   title: "Students",
+          //   svgSrc: "assets/icons/menu_doc.svg",
+          //   press: () {
+          //     context.goNamed(AppRoute.account.name);
+          //   },
+          // ),
           DrawerListTile(
             title: "Subjects",
-            svgSrc: "assets/icons/menu_task.svg",
+            svgSrc: "assets/icons/menu_store.svg",
             press: () {
               context.goNamed(AppRoute.subjects.name);
             },
           ),
-          DrawerListTile(
-            title: "Students",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {
-              context.goNamed(AppRoute.account.name);
-            },
-          ),
-          DrawerListTile(
-            title: "Lesson",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {
-              context.goNamed(AppRoute.jobs.name);
-            },
-          ),
-          DrawerListTile(
-            title: "Activity",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Account",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
-          ),
+          // DrawerListTile(
+          //   title: "Activity",
+          //   svgSrc: "assets/icons/menu_store.svg",
+          //   press: () {},
+          // ),
+          // DrawerListTile(
+          //   title: "Account",
+          //   svgSrc: "assets/icons/menu_store.svg",
+          //   press: () {},
+          // ),
           DrawerListTile(
             title: "Logout",
             svgSrc: "assets/icons/menu_profile.svg",

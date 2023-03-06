@@ -9,12 +9,11 @@ import 'package:starter_architecture_flutter_firebase/src/features/authenticatio
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/presentation/email_password/email_password_sign_in_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/presentation/entries_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/subject.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/entry_screen/entry_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/job_entries_screen/job_entries_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
 
 // private navigators
@@ -25,14 +24,15 @@ enum AppRoute {
   signIn,
   emailPassword,
   dashboard,
-  jobs,
+  // jobs,
   job, //specific job
-  addJob,
+  // addJob,
   editJob,
   entry,
   addEntry,
   editEntry,
   subjects,
+  addSubject,
   account,
 }
 
@@ -89,20 +89,20 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         },
         routes: [
           GoRoute(
-            path: '/jobs',
-            name: AppRoute.jobs.name,
-            pageBuilder: (context, state) =>
-                NoTransitionPage(key: state.pageKey, child: JobsScreen()),
+            path: '/subjects',
+            name: AppRoute.subjects.name,
+            pageBuilder: (context, state) => NoTransitionPage(
+                key: state.pageKey, child: const SubjectScreen()),
             routes: [
               GoRoute(
                 path: 'add',
-                name: AppRoute.addJob.name,
+                name: AppRoute.addSubject.name,
                 parentNavigatorKey: _rootNavigatorKey,
                 pageBuilder: (context, state) {
                   return MaterialPage(
                     key: state.pageKey,
                     fullscreenDialog: true,
-                    child: const EditJobScreen(),
+                    child: const EditSubjectScreen(),
                   );
                 },
               ),
@@ -158,7 +158,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                       return MaterialPage(
                         key: state.pageKey,
                         fullscreenDialog: true,
-                        child: EditJobScreen(jobId: jobId, job: job),
+                        child: EditSubjectScreen(jobId: jobId, job: job),
                       );
                     },
                   ),
