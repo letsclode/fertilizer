@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:starter_architecture_flutter_firebase/src/design/responsive.dart';
-import 'package:starter_architecture_flutter_firebase/src/design/screens/dashboard/dashboard_screen.dart';
 import 'components/side_menu.dart';
 
 class MainScreen extends StatelessWidget {

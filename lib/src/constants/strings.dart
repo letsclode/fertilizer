@@ -21,9 +21,11 @@ class Strings {
 
   // Jobs page
   static const String jobs = 'Jobs';
+  //dashboard
+  static const String dashboard = 'DashBoard';
 
   // Entries page
-  static const String entries = 'Entries';
+  static const String subject = 'Subjects';
 
   // Account page
   static const String account = 'Account';

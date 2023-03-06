@@ -31,14 +31,14 @@ class SideMenu extends ConsumerWidget {
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashbord.svg",
             press: () {
-              context.goNamed(AppRoute.jobs.name);
+              context.goNamed(AppRoute.dashboard.name);
             },
           ),
           DrawerListTile(
             title: "Subjects",
             svgSrc: "assets/icons/menu_task.svg",
             press: () {
-              context.goNamed(AppRoute.entries.name);
+              context.goNamed(AppRoute.subjects.name);
             },
           ),
           DrawerListTile(
@@ -51,7 +51,9 @@ class SideMenu extends ConsumerWidget {
           DrawerListTile(
             title: "Lesson",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
+            press: () {
+              context.goNamed(AppRoute.jobs.name);
+            },
           ),
           DrawerListTile(
             title: "Activity",

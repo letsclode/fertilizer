@@ -5,14 +5,14 @@ import 'package:starter_architecture_flutter_firebase/src/features/entries/domai
 import 'package:starter_architecture_flutter_firebase/src/features/entries/application/entries_service.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 
-class EntriesScreen extends ConsumerWidget {
-  const EntriesScreen({super.key});
+class SubjectScreen extends ConsumerWidget {
+  const SubjectScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.entries),
+        title: const Text(Strings.subject),
       ),
       body: Consumer(
         builder: (context, ref, child) {

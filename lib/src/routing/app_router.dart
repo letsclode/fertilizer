@@ -14,8 +14,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/jobs/presenta
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/job_entries_screen/job_entries_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/go_router_refresh_stream.dart';
-import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_bottom_nav_bar.dart';
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -24,14 +24,15 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 enum AppRoute {
   signIn,
   emailPassword,
+  dashboard,
   jobs,
-  job,
+  job, //specific job
   addJob,
   editJob,
   entry,
   addEntry,
   editEntry,
-  entries,
+  subjects,
   account,
 }
 
@@ -53,7 +54,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       }
 
       if (isLoggedIn && onloginPage) {
-        return '/jobs';
+        return '/dashboard';
       }
       return null;
     },
@@ -91,7 +92,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             path: '/jobs',
             name: AppRoute.jobs.name,
             pageBuilder: (context, state) =>
-                NoTransitionPage(key: state.pageKey, child: DashboardScreen()),
+                NoTransitionPage(key: state.pageKey, child: JobsScreen()),
             routes: [
               GoRoute(
                 path: 'add',
@@ -117,7 +118,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                 },
                 routes: [
                   GoRoute(
-                    path: 'entries/add',
+                    path: 'subjects/add',
                     name: AppRoute.addEntry.name,
                     parentNavigatorKey: _rootNavigatorKey,
                     pageBuilder: (context, state) {
@@ -132,7 +133,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
                     },
                   ),
                   GoRoute(
-                    path: 'entries/:eid',
+                    path: 'subjects/:eid',
                     name: AppRoute.entry.name,
                     pageBuilder: (context, state) {
                       final jobId = state.params['id']!;
@@ -166,11 +167,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             ],
           ),
           GoRoute(
-            path: '/entries',
-            name: AppRoute.entries.name,
+            path: '/subjects',
+            name: AppRoute.subjects.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: const EntriesScreen(),
+              child: const SubjectScreen(),
+            ),
+          ),
+          GoRoute(
+            path: '/dashboard',
+            name: AppRoute.dashboard.name,
+            pageBuilder: (context, state) => NoTransitionPage(
+              key: state.pageKey,
+              child: const DashboardScreen(),
             ),
           ),
           GoRoute(
