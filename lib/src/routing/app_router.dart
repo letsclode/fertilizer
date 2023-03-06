@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:starter_architecture_flutter_firebase/src/design/screens/dashboard/dashboard_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/design/screens/main/main_screen.dart';
 import 'package:starter_architecture_flutter_firebase/src/design/screens/welcome/welcome_page.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/authentication/data/firebase_auth_repository.dart';
@@ -19,7 +20,6 @@ import 'package:starter_architecture_flutter_firebase/src/routing/scaffold_with_
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
-final _adminNavigatorKey = GlobalKey<NavigatorState>();
 
 enum AppRoute {
   signIn,
@@ -84,14 +84,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
-          return ScaffoldWithBottomNavBar(child: child);
+          return MainScreen(child: child);
         },
         routes: [
           GoRoute(
             path: '/jobs',
             name: AppRoute.jobs.name,
             pageBuilder: (context, state) =>
-                NoTransitionPage(key: state.pageKey, child: const MainScreen()),
+                NoTransitionPage(key: state.pageKey, child: DashboardScreen()),
             routes: [
               GoRoute(
                 path: 'add',

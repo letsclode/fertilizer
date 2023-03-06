@@ -4,7 +4,8 @@ import 'package:starter_architecture_flutter_firebase/src/design/screens/dashboa
 import 'components/side_menu.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  final Widget child;
+  const MainScreen({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +24,10 @@ class MainScreen extends StatelessWidget {
               // and it takes 1/6 part of the screen
               child: SideMenu(),
             ),
-          const Expanded(
+          Expanded(
             // It takes 5/6 part of the screen
             flex: 5,
-            child: DashboardScreen(),
+            child: child,
           ),
         ],
       ),
