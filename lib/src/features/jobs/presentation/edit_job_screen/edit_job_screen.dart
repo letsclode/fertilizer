@@ -3,20 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/subject.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/edit_job_screen/edit_job_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
-class EditSubjectScreen extends ConsumerStatefulWidget {
-  const EditSubjectScreen({super.key, this.jobId, this.job});
+class EditJobScreen extends ConsumerStatefulWidget {
+  const EditJobScreen({super.key, this.jobId, this.job});
   final JobID? jobId;
   final Job? job;
 
   @override
-  ConsumerState<EditSubjectScreen> createState() => _EditJobPageState();
+  ConsumerState<EditJobScreen> createState() => _EditJobPageState();
 }
 
-class _EditJobPageState extends ConsumerState<EditSubjectScreen> {
+class _EditJobPageState extends ConsumerState<EditJobScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;

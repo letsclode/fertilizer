@@ -3,24 +3,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/subject.dart';
+import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
 
-class SubjectScreen extends StatelessWidget {
-  const SubjectScreen({super.key});
+class JobsScreen extends StatelessWidget {
+  const JobsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.subject),
+        title: const Text(Strings.jobs),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add, color: Colors.white),
-            onPressed: () => context.goNamed(AppRoute.addSubject.name),
+            onPressed: () => context.goNamed(AppRoute.addJob.name),
           ),
         ],
       ),
@@ -41,7 +41,7 @@ class SubjectScreen extends StatelessWidget {
               direction: DismissDirection.endToStart,
               onDismissed: (direction) => ref
                   .read(jobsScreenControllerProvider.notifier)
-                  .deleteSubject(job),
+                  .deleteJob(job),
               child: JobListTile(
                 job: job,
                 onTap: () => context.goNamed(

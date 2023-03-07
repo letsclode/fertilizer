@@ -1,75 +1,13 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:badges/badges.dart' as badges;
 import '../../../constants.dart';
 import '../../../responsive.dart';
-import 'package:http/http.dart' as http;
 
-class Header extends StatefulWidget {
+class Header extends StatelessWidget {
   const Header({
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<Header> createState() => _HeaderState();
-}
-
-class _HeaderState extends State<Header> {
-  String? token;
-
-  @override
-  void initState() {
-    passToken();
-    super.initState();
-  }
-
-  passToken() async {
-    FirebaseFirestore.instance
-        .collection("admintokens")
-        .doc("HrN6zpXzEnN0wv6P872Z71184Up1")
-        .get()
-        .then((value) => {
-              setState(() {
-                token = value.data()!.values.first.toString();
-                print(token);
-              })
-            })
-        .catchError((err) => print(err));
-  }
-
-  void sendPushMessage(String body, String title, String token) async {
-    try {
-      await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization':
-              'key=AAAAwbaSXRc:APA91bE3cGglZGUNI0h8vuW1PaSBLFMy0MjBb_DE1QEG4wJjU-oqJ1b3pC8s25jaseOFfP248WQAwgFC8vp_B3wxUJx_xtgJMDICVczImwsDkjDkp_8sS8-Bpo9JZ_FmdgezOBXYarCT',
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'notification': <String, dynamic>{
-              'body': body,
-              'title': title,
-            },
-            'priority': 'high',
-            'data': <String, dynamic>{
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'id': '1',
-              'status': 'done'
-            },
-            "to": token,
-          },
-        ),
-      );
-      print('done');
-    } catch (e) {
-      print("error push notification");
-    }
-  }
 
   //TODO: activate when menu button press
   @override
@@ -79,11 +17,9 @@ class _HeaderState extends State<Header> {
         if (!Responsive.isDesktop(context))
           IconButton(
             icon: const Icon(Icons.menu),
-            onPressed: () {
-              print("send message");
-              print(token!);
-              sendPushMessage("This is the body", "This is the title", token!);
-            },
+            onPressed: () {},
+            //TODO: add provider here
+            // onPressed: context.read<MenuControllerCustom>().controlMenu,
           ),
         if (!Responsive.isMobile(context))
           Text(
