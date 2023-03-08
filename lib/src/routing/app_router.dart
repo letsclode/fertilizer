@@ -171,7 +171,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             name: AppRoute.subjects.name,
             pageBuilder: (context, state) => NoTransitionPage(
               key: state.pageKey,
-              child: const SubjectScreen(),
+              child: const ActivityScreen(),
             ),
           ),
           GoRoute(

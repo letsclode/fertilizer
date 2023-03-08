@@ -6,9 +6,7 @@ import 'package:starter_architecture_flutter_firebase/src/features/entries/domai
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entries_list_tile_model.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/entries/domain/entry_job.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
-import 'package:starter_architecture_flutter_firebase/src/utils/format.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/entry.dart';
-
 import '../../jobs/domain/job.dart';
 
 // TODO: Clean up this code a bit more
@@ -43,35 +41,35 @@ class EntriesService {
     final allDailyJobsDetails = DailyJobsDetails.all(allEntries);
 
     // total duration across all jobs
-    final totalDuration = allDailyJobsDetails
-        .map((dateJobsDuration) => dateJobsDuration.duration)
-        .reduce((value, element) => value + element);
+    // final totalDuration = allDailyJobsDetails
+    //     .map((dateJobsDuration) => dateJobsDuration.duration)
+    //     .reduce((value, element) => value + element);
 
     // total pay across all jobs
-    final totalPay = allDailyJobsDetails
-        .map((dateJobsDuration) => dateJobsDuration.pay)
-        .reduce((value, element) => value + element);
+    // final totalPay = allDailyJobsDetails
+    //     .map((dateJobsDuration) => dateJobsDuration.pay)
+    //     .reduce((value, element) => value + element);
 
     return <EntriesListTileModel>[
-      EntriesListTileModel(
+      const EntriesListTileModel(
         leadingText: 'All Entries',
-        middleText: Format.currency(totalPay),
-        trailingText: Format.hours(totalDuration),
+        middleText: 'middle text',
+        trailingText: 'trailing text',
       ),
-      for (DailyJobsDetails dailyJobsDetails in allDailyJobsDetails) ...[
-        EntriesListTileModel(
-          isHeader: true,
-          leadingText: Format.date(dailyJobsDetails.date),
-          middleText: Format.currency(dailyJobsDetails.pay),
-          trailingText: Format.hours(dailyJobsDetails.duration),
-        ),
-        for (JobDetails jobDuration in dailyJobsDetails.jobsDetails)
-          EntriesListTileModel(
-            leadingText: jobDuration.name,
-            middleText: Format.currency(jobDuration.pay),
-            trailingText: Format.hours(jobDuration.durationInHours),
-          ),
-      ]
+      // for (DailyJobsDetails dailyJobsDetails in allDailyJobsDetails) ...[
+      //   EntriesListTileModel(
+      //     isHeader: true,
+      //     leadingText: Format.date(dailyJobsDetails.date),
+      //     middleText: Format.currency(dailyJobsDetails.pay),
+      //     trailingText: Format.hours(dailyJobsDetails.duration),
+      //   ),
+      //   for (JobDetails jobDuration in dailyJobsDetails.jobsDetails)
+      //     EntriesListTileModel(
+      //       leadingText: jobDuration.name,
+      //       middleText: Format.currency(jobDuration.pay),
+      //       trailingText: Format.hours(jobDuration.durationInHours),
+      //     ),
+      // ]
     ];
   }
 }

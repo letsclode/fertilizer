@@ -5,8 +5,8 @@ import 'package:starter_architecture_flutter_firebase/src/features/entries/domai
 import 'package:starter_architecture_flutter_firebase/src/features/entries/application/entries_service.dart';
 import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 
-class SubjectScreen extends ConsumerWidget {
-  const SubjectScreen({super.key});
+class ActivityScreen extends ConsumerWidget {
+  const ActivityScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

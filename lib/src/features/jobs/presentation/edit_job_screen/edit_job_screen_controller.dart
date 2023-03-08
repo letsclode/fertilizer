@@ -13,13 +13,18 @@ class EditJobScreenController extends AutoDisposeAsyncNotifier<void> {
   }
 
   Future<bool> submit(
-      {Job? job, required String name, required int ratePerHour}) async {
+      {Job? job,
+      required String name,
+      required String details,
+      required String code}) async {
     final currentUser = ref.read(authRepositoryProvider).currentUser;
+
     if (currentUser == null) {
       throw AssertionError('User can\'t be null');
     }
     // set loading state
     state = const AsyncLoading().copyWithPrevious(state);
+
     // check if name is already in use
     final database = ref.read(databaseProvider);
     final jobs = await database.fetchJobs(uid: currentUser.uid);
@@ -28,13 +33,15 @@ class EditJobScreenController extends AutoDisposeAsyncNotifier<void> {
     if (job != null) {
       allLowerCaseNames.remove(job.name.toLowerCase());
     }
+
     // check if name is already used
     if (allLowerCaseNames.contains(name.toLowerCase())) {
       state = AsyncError(JobSubmitException(), StackTrace.current);
       return false;
     } else {
       final id = job?.id ?? documentIdFromCurrentDate();
-      final updated = Job(id: id, name: name, ratePerHour: ratePerHour);
+      final updated = Job(id: id, name: name, details: details, code: code);
+      
       state = await AsyncValue.guard(
         () => database.setJob(uid: currentUser.uid, job: updated),
       );

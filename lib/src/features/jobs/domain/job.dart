@@ -5,13 +5,18 @@ typedef JobID = String;
 
 @immutable
 class Job extends Equatable {
-  const Job({required this.id, required this.name, required this.ratePerHour});
+  const Job(
+      {required this.id,
+      required this.name,
+      required this.details,
+      required this.code});
   final JobID id;
   final String name;
-  final int ratePerHour;
+  final String details;
+  final String code;
 
   @override
-  List<Object> get props => [id, name, ratePerHour];
+  List<Object> get props => [id, name, details, code];
 
   @override
   bool get stringify => true;
@@ -24,14 +29,18 @@ class Job extends Equatable {
     if (name == null) {
       throw StateError('missing name for jobId: $documentId');
     }
-    final ratePerHour = data['ratePerHour'] as int;
-    return Job(id: documentId, name: name, ratePerHour: ratePerHour);
+    final details = data['details'] as String?;
+    if (details == null) {
+      throw StateError('missing details for jobId: $documentId');
+    }
+    final code = data['code'] as String?;
+    if (code == null) {
+      throw StateError('missing code for jobId: $documentId');
+    }
+    return Job(id: documentId, name: name, details: details, code: code);
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'ratePerHour': ratePerHour,
-    };
+    return {'name': name, 'details': details, 'code': code};
   }
 }

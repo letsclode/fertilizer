@@ -36,23 +36,23 @@ class SideMenu extends ConsumerWidget {
           ),
           DrawerListTile(
             title: "Subjects",
-            svgSrc: "assets/icons/menu_task.svg",
+            svgSrc: "assets/icons/menu_store.svg",
             press: () {
-              context.goNamed(AppRoute.subjects.name);
+              context.goNamed(AppRoute.jobs.name);
             },
           ),
+          // DrawerListTile(
+          //   title: "Subjects",
+          //   svgSrc: "assets/icons/menu_task.svg",
+          //   press: () {
+          //     context.goNamed(AppRoute.subjects.name);
+          //   },
+          // ),
           DrawerListTile(
             title: "Students",
             svgSrc: "assets/icons/menu_doc.svg",
             press: () {
               context.goNamed(AppRoute.account.name);
-            },
-          ),
-          DrawerListTile(
-            title: "Lesson",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {
-              context.goNamed(AppRoute.jobs.name);
             },
           ),
           DrawerListTile(
