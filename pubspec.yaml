@@ -19,6 +19,7 @@ dependencies:
   fl_chart: ^0.60.0
   flutter:
     sdk: flutter
+  flutter_draggable_gridview: ^0.0.7
   flutter_riverpod: ^2.1.1
   flutter_svg: ^1.1.6
   go_router: 5.1.1

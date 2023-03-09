@@ -27,15 +27,15 @@ class SideMenu extends ConsumerWidget {
           DrawerHeader(
             child: Image.asset("assets/images/logo.png"),
           ),
+          // DrawerListTile(
+          //   title: "Dashboard",
+          //   svgSrc: "assets/icons/menu_dashbord.svg",
+          //   press: () {
+          //     context.goNamed(AppRoute.dashboard.name);
+          //   },
+          // ),
           DrawerListTile(
-            title: "Dashboard",
-            svgSrc: "assets/icons/menu_dashbord.svg",
-            press: () {
-              context.goNamed(AppRoute.dashboard.name);
-            },
-          ),
-          DrawerListTile(
-            title: "Subjects",
+            title: "Classes",
             svgSrc: "assets/icons/menu_store.svg",
             press: () {
               context.goNamed(AppRoute.jobs.name);

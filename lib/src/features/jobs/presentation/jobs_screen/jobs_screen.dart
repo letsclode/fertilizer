@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/constants/strings.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/data/firestore_repository.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/domain/job.dart';
-import 'package:starter_architecture_flutter_firebase/src/common_widgets/list_items_builder.dart';
 import 'package:starter_architecture_flutter_firebase/src/features/jobs/presentation/jobs_screen/jobs_screen_controller.dart';
 import 'package:starter_architecture_flutter_firebase/src/routing/app_router.dart';
 import 'package:starter_architecture_flutter_firebase/src/utils/async_value_ui.dart';
@@ -16,7 +16,7 @@ class JobsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.jobs),
+        title: const Text(Strings.kclass),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.add, color: Colors.white),
@@ -33,24 +33,78 @@ class JobsScreen extends StatelessWidget {
           // * TODO: investigate why we get a dismissible error if we call
           // * ref.watch(jobsScreenControllerProvider) here
           final jobsAsyncValue = ref.watch(jobsStreamProvider);
-          return ListItemsBuilder<Job>(
-            data: jobsAsyncValue,
-            itemBuilder: (context, job) => Dismissible(
-              key: Key('job-${job.id}'),
-              background: Container(color: Colors.red),
-              direction: DismissDirection.endToStart,
-              onDismissed: (direction) => ref
-                  .read(jobsScreenControllerProvider.notifier)
-                  .deleteJob(job),
-              child: JobListTile(
-                job: job,
-                onTap: () => context.goNamed(
-                  AppRoute.job.name,
-                  params: {'id': job.id},
+          return DraggableGridViewBuilder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 20,
+                crossAxisSpacing: 20,
+                crossAxisCount: 4,
+                childAspectRatio: 1),
+            children: [
+              DraggableGridItem(
+                  isDraggable: true,
+                  child: Expanded(
+                    child: Container(
+                        color: Colors.red, child: const Text("Item 1")),
+                  )),
+              DraggableGridItem(
+                  isDraggable: true,
+                  child: Expanded(
+                    child: Container(
+                        color: Colors.red, child: const Text("Item 1")),
+                  )),
+              DraggableGridItem(
+                  isDraggable: true,
+                  child: Expanded(
+                    child: Container(
+                        color: Colors.red, child: const Text("Item 1")),
+                  )),
+              DraggableGridItem(
+                  isDraggable: true,
+                  child: Expanded(
+                    child: Container(
+                        color: Colors.red, child: const Text("Item 1")),
+                  )),
+            ],
+            isOnlyLongPress: false,
+            dragCompletion: (List<DraggableGridItem> list, int beforeIndex,
+                int afterIndex) {
+              print('onDragAccept: $beforeIndex -> $afterIndex');
+            },
+            dragFeedback: (List<DraggableGridItem> list, int index) {
+              return SizedBox(
+                width: 200,
+                height: 150,
+                child: list[index].child,
+              );
+            },
+            dragPlaceHolder: (List<DraggableGridItem> list, int index) {
+              return PlaceHolderWidget(
+                child: Container(
+                  width: 200,
+                  height: 150,
+                  color: Colors.white,
                 ),
-              ),
-            ),
+              );
+            },
           );
+          // return ListItemsBuilder<Job>(
+          //   data: jobsAsyncValue,
+          //   itemBuilder: (context, job) => Dismissible(
+          //     key: Key('job-${job.id}'),
+          //     background: Container(color: Colors.red),
+          //     direction: DismissDirection.endToStart,
+          //     onDismissed: (direction) => ref
+          //         .read(jobsScreenControllerProvider.notifier)
+          //         .deleteJob(job),
+          //     child: JobListTile(
+          //       job: job,
+          //       onTap: () => context.goNamed(
+          //         AppRoute.job.name,
+          //         params: {'id': job.id},
+          //       ),
+          //     ),
+          //   ),
+          // );
         },
       ),
     );
@@ -65,10 +119,17 @@ class JobListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(job.name),
-      trailing: const Icon(Icons.chevron_right),
-      onTap: onTap,
+    return Container(
+      color: Colors.red,
+      height: 200,
+      width: 100,
+      child: Card(
+        child: ListTile(
+          title: Text(job.name),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: onTap,
+        ),
+      ),
     );
   }
 }
