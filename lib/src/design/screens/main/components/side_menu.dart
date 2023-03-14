@@ -27,6 +27,7 @@ class SideMenu extends ConsumerWidget {
           DrawerHeader(
             child: Image.asset("assets/images/logo.png"),
           ),
+          //TODO: remove or change dashboard
           // DrawerListTile(
           //   title: "Dashboard",
           //   svgSrc: "assets/icons/menu_dashbord.svg",
@@ -34,6 +35,7 @@ class SideMenu extends ConsumerWidget {
           //     context.goNamed(AppRoute.dashboard.name);
           //   },
           // ),
+
           DrawerListTile(
             title: "Classes",
             svgSrc: "assets/icons/menu_store.svg",
@@ -41,6 +43,7 @@ class SideMenu extends ConsumerWidget {
               context.goNamed(AppRoute.jobs.name);
             },
           ),
+          //TODO: remove or change subjects
           // DrawerListTile(
           //   title: "Subjects",
           //   svgSrc: "assets/icons/menu_task.svg",
@@ -48,22 +51,18 @@ class SideMenu extends ConsumerWidget {
           //     context.goNamed(AppRoute.subjects.name);
           //   },
           // ),
+
           DrawerListTile(
-            title: "Students",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {
-              context.goNamed(AppRoute.account.name);
-            },
-          ),
-          DrawerListTile(
-            title: "Activity",
+            title: "To review",
             svgSrc: "assets/icons/menu_store.svg",
             press: () {},
           ),
           DrawerListTile(
             title: "Account",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
+            press: () {
+              context.goNamed(AppRoute.account.name);
+            },
           ),
           DrawerListTile(
             title: "Logout",

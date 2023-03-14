@@ -13,21 +13,22 @@ class EmailPasswordSignInController extends AutoDisposeAsyncNotifier<void> {
       {required String email,
       required String password,
       required EmailPasswordSignInFormType formType,
-      required UserType userType}) async {
+      required UserType userType,
+      idCode = ''}) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(
-        () => _authenticate(email, password, formType, userType));
+        () => _authenticate(email, password, formType, userType, idCode));
   }
 
   Future<void> _authenticate(String email, String password,
-      EmailPasswordSignInFormType formType, UserType userType) {
+      EmailPasswordSignInFormType formType, UserType userType, String idCode) {
     final authRepository = ref.read(authRepositoryProvider);
     switch (formType) {
       case EmailPasswordSignInFormType.signIn:
         return authRepository.signInWithEmailAndPassword(email, password);
       case EmailPasswordSignInFormType.register:
         return authRepository.createUserWithEmailAndPassword(
-            email, password, userType.name);
+            email, password, userType.name, idCode);
     }
   }
 }

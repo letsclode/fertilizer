@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -20,16 +20,24 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String? _name;
-  String? _details;
+  String? _description;
   String? _code;
+
+  String generateRandomString(int len) {
+    var r = Random();
+    return String.fromCharCodes(
+        List.generate(len, (index) => r.nextInt(33) + 89));
+  }
 
   @override
   void initState() {
     super.initState();
     if (widget.job != null) {
       _name = widget.job?.name;
+      _description = widget.job?.details;
       _code = widget.job?.code;
-      _details = widget.job?.details;
+    } else {
+      _code = generateRandomString(5);
     }
   }
 
@@ -49,7 +57,7 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
           .submit(
               job: widget.job,
               name: _name ?? '',
-              details: _details ?? "",
+              details: _description ?? "",
               code: _code ?? "");
       if (success && mounted) {
         context.pop();
@@ -66,7 +74,7 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
     final state = ref.watch(editJobScreenControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.job == null ? 'New Job' : 'Edit Job'),
+        title: Text(widget.job == null ? 'New Class' : 'Edit Class'),
         actions: <Widget>[
           TextButton(
             onPressed: state.isLoading ? null : _submit,
@@ -108,7 +116,7 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
   List<Widget> _buildFormChildren() {
     return [
       TextFormField(
-        decoration: const InputDecoration(labelText: 'Job name'),
+        decoration: const InputDecoration(labelText: 'Class name'),
         keyboardAppearance: Brightness.light,
         initialValue: _name,
         validator: (value) =>
@@ -116,10 +124,10 @@ class _EditJobPageState extends ConsumerState<EditJobScreen> {
         onSaved: (value) => _name = value,
       ),
       TextFormField(
-        decoration: const InputDecoration(labelText: 'Details'),
+        decoration: const InputDecoration(labelText: 'Description'),
         keyboardAppearance: Brightness.light,
-        initialValue: _details != null ? '$_details' : null,
-        onSaved: (value) => _details ?? '',
+        initialValue: _description != null ? '$_description' : null,
+        onSaved: (value) => _description ?? '',
       ),
     ];
   }

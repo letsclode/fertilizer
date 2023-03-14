@@ -8,10 +8,13 @@ environment:
   sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
+  flutter_riverpod: ^2.3.1
+  riverpod_annotation: ^2.0.1
   badges: ^3.0.2
   cloud_firestore: ^4.0.5
   cupertino_icons: ^1.0.5
   data_table_2: ^2.3.12
+  dropdown_button2: ^2.0.0
   equatable: ^2.0.5
   firebase_auth: ^4.1.2
   firebase_core: ^2.2.0
@@ -20,7 +23,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_draggable_gridview: ^0.0.7
-  flutter_riverpod: ^2.1.1
+  flutter_reorderable_grid_view: ^4.0.0
   flutter_svg: ^1.1.6
   go_router: 5.1.1
   google_fonts: ^4.0.3
@@ -34,6 +37,10 @@ dev_dependencies:
   mocktail: ^0.3.0
   random_string:
   flutter_lints: ^2.0.0
+  build_runner:
+  custom_lint:
+  riverpod_generator: ^2.1.3
+  riverpod_lint: ^1.1.5
 
 # https://stackoverflow.com/a/74234079/436422
 #dependency_overrides:

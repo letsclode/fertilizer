@@ -54,7 +54,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       }
 
       if (isLoggedIn && onloginPage) {
-        return '/dashboard';
+        return '/jobs';
       }
       return null;
     },
@@ -92,7 +92,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             path: '/jobs',
             name: AppRoute.jobs.name,
             pageBuilder: (context, state) =>
-                NoTransitionPage(key: state.pageKey, child: JobsScreen()),
+                NoTransitionPage(key: state.pageKey, child: const JobsScreen()),
             routes: [
               GoRoute(
                 path: 'add',

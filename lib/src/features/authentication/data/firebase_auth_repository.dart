@@ -18,18 +18,27 @@ class AuthRepository {
   }
 
   Future<void> createUserWithEmailAndPassword(
-      String email, String password, String userType) {
+      String email, String password, String userType, String idCode) {
     return _auth
         .createUserWithEmailAndPassword(email: email, password: password)
-        .then((value) => postDetailsToFirestore(email, userType));
+        .then((value) => postDetailsToFirestore(email, userType, idCode));
   }
 
-  postDetailsToFirestore(String email, String rule) async {
+  postDetailsToFirestore(String email, String rule, String idCode) async {
     try {
       FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
       var user = _auth.currentUser;
-      CollectionReference ref = FirebaseFirestore.instance.collection('users');
-      ref.doc(user!.uid).set({'email': email, 'rule': rule});
+      if (idCode.isNotEmpty) {
+        CollectionReference ref =
+            FirebaseFirestore.instance.collection('users');
+        ref
+            .doc(user!.uid)
+            .set({'email': email, 'rule': rule, 'idcode': idCode});
+      } else {
+        CollectionReference ref =
+            FirebaseFirestore.instance.collection('users');
+        ref.doc(user!.uid).set({'email': email, 'rule': rule});
+      }
     } catch (e) {
       print(e);
     }
